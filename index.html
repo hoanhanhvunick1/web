@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Trang Index với Video Background</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+
+        #video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -1;
+        }
+
+        #video-background video {
+            min-width: 100%;
+            min-height: 100%;
+            object-fit: cover;
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+            padding: 20px;
+            color: white;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="video-background">
+        <video autoplay loop muted playsinline>
+            <source src="icon/aesthetic-pastel-clouds.1920x1080.mp4" type="video/mp4">
+            Trình duyệt của bạn không hỗ trợ thẻ video.
+        </video>
+    </div>
+
+    <div class="content">
+        <h1>Chào mừng đến trang web của tôi</h1>
+        <p>Đây là nội dung trang web của bạn. Bạn có thể thêm bất kỳ nội dung HTML nào ở đây.</p>
+    </div>
+
+</body>
+</html>
