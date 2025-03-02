@@ -6,6 +6,7 @@
         body {
             margin: 0;
             overflow: hidden;
+            font-family: sans-serif; /* Chọn font chữ mặc định cho trang */
         }
 
         #video-background {
@@ -30,6 +31,40 @@
             color: white;
             text-align: center;
         }
+
+        .content h1 {
+            font-size: 3em; /* Điều chỉnh kích thước tiêu đề */
+            margin-bottom: 20px; /* Thêm khoảng cách dưới tiêu đề */
+        }
+
+        .content ol {
+            list-style: none; /* Loại bỏ dấu chấm mặc định của danh sách */
+            padding: 0;
+        }
+
+        .content ol li {
+            margin-bottom: 10px; /* Khoảng cách giữa các mục danh sách */
+        }
+
+        .content ol li a {
+            display: inline-block; /* Để có thể thêm padding và margin cho link */
+            padding: 10px 20px;
+            background-color: rgba(255, 255, 255, 0.8); /* Màu nền cho link, hơi trong suốt */
+            color: #333; /* Màu chữ cho link */
+            text-decoration: none; /* Loại bỏ gạch chân mặc định của link */
+            border-radius: 5px; /* Bo tròn góc link */
+            font-weight: bold; /* Chữ in đậm cho link */
+            transition: background-color 0.3s ease; /* Hiệu ứng chuyển màu khi hover */
+        }
+
+        .content ol li a:hover {
+            background-color: rgba(255, 255, 255, 1); /* Màu nền đậm hơn khi hover */
+        }
+
+        .content ol li a::before { /* Thêm icon trước link */
+            content: "→ "; /* Kí tự mũi tên (có thể thay bằng icon khác) */
+            margin-right: 10px;
+        }
     </style>
 </head>
 <body>
@@ -42,8 +77,12 @@
     </div>
 
     <div class="content">
-        <h1>Chào mừng đến trang web của tôi</h1>
-        <p>Đây là nội dung trang web của bạn. Bạn có thể thêm bất kỳ nội dung HTML nào ở đây.</p>
+        <h1>Hoàng Anh Vũ</h1>
+
+        <ol>
+            <li><a href="ai_index.html">🤖 Chuyển đến AI Hoàng Anh Vũ</a></li>
+            <li><a href="bot_index.html">✨ Bot Hoàng Anh Vũ</a></li>
+        </ol>
     </div>
 
 </body>
