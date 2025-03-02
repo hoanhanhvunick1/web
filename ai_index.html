@@ -7,7 +7,6 @@
             font-family: sans-serif;
             margin: 0;
             padding: 20px;
-            background-color: #f4f4f4; /* Màu nền dự phòng nếu video không tải được hoặc chưa phát */
             overflow: hidden; /* Ẩn thanh cuộn nếu video lớn hơn viewport */
         }
 
@@ -29,15 +28,12 @@
         .container {
             max-width: 800px;
             margin: 0 auto;
-            background-color: rgba(255, 255, 255, 0.8); /* Nền container hơi trong suốt để nhìn thấy video */
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             position: relative; /* Cần thiết để z-index của .container hoạt động */
             z-index: 1; /* Đảm bảo container nằm trên video */
         }
-
-        /* ... (CSS cho #chat-log, #user-input, button, .user-message, .ai-message giữ nguyên từ code trước) ... */
 
         #chat-log {
             border: 1px solid #ccc;
@@ -103,12 +99,11 @@
     </div>
 
     <script>
-        // ... (JavaScript code giữ nguyên từ code trước, chỉ cần đảm bảo API Key của bạn vẫn đúng) ...
         const chatLog = document.getElementById('chat-log');
         const userInput = document.getElementById('user-input');
         const sendButton = document.getElementById('send-button');
 
-        const apiKey = 'YOUR_API_KEY'; // **NHỚ THAY API KEY CỦA BẠN VÀO ĐÂY!**
+        const apiKey = 'AIzaSyA3heEub0BYMp6IvNn5rY6wkWxESOOD3Y8'; // **NHỚ THAY API KEY GEMINI CỦA BẠN VÀO ĐÂY!**
 
         sendButton.addEventListener('click', sendMessage);
 
