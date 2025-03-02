@@ -7,40 +7,24 @@
             font-family: sans-serif;
             margin: 0;
             padding: 20px;
-            overflow: hidden; /* Ẩn thanh cuộn nếu video lớn hơn viewport */
-        }
-
-        #video-background {
-            position: fixed; /* Cố định video ở vị trí */
-            top: 0;
-            left: 0;
-            min-width: 100%;
-            min-height: 100%;
-            z-index: -1; /* Đặt video ở lớp nền, phía sau nội dung */
-        }
-
-        #video-background video {
-            min-width: 100%;
-            min-height: 100%;
-            object-fit: cover; /* Đảm bảo video bao phủ toàn bộ vùng chứa, có thể crop */
+            background-color: #f4f4f4; /* Nền xám nhạt */
         }
 
         .container {
             max-width: 800px;
             margin: 0 auto;
+            background-color: #fff; /* Nền trắng cho container */
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            position: relative; /* Cần thiết để z-index của .container hoạt động */
-            z-index: 1; /* Đảm bảo container nằm trên video */
         }
 
         #chat-log {
             border: 1px solid #ccc;
             padding: 10px;
             margin-bottom: 10px;
-            height: 300px;
-            overflow-y: scroll;
+            height: 300px; /* Điều chỉnh chiều cao tùy ý */
+            overflow-y: scroll; /* Thêm thanh cuộn khi nội dung vượt quá chiều cao */
             background-color: #eee;
             border-radius: 5px;
         }
@@ -51,7 +35,7 @@
             border: 1px solid #ccc;
             border-radius: 5px;
             margin-bottom: 10px;
-            box-sizing: border-box;
+            box-sizing: border-box; /* Đảm bảo padding và border không làm tăng kích thước phần tử */
         }
 
         button {
@@ -70,25 +54,17 @@
         .user-message {
             text-align: right;
             margin-bottom: 5px;
-            color: blue;
+            color: blue; /* Màu cho tin nhắn người dùng */
         }
 
         .ai-message {
             text-align: left;
             margin-bottom: 5px;
-            color: green;
+            color: green; /* Màu cho tin nhắn AI */
         }
     </style>
 </head>
 <body>
-
-    <div id="video-background">
-        <video autoplay loop muted playsinline>
-            <source src="icon/hu-tao-genshin.1920x1080.mp4" type="video/mp4">
-            Trình duyệt của bạn không hỗ trợ thẻ video.
-        </video>
-    </div>
-
     <div class="container">
         <h1>AI Hoàng Anh Vũ</h1>
         <div id="chat-log">
@@ -103,13 +79,14 @@
         const userInput = document.getElementById('user-input');
         const sendButton = document.getElementById('send-button');
 
-        const apiKey = 'AIzaSyA3heEub0BYMp6IvNn5rY6wkWxESOOD3Y8'; // **NHỚ THAY API KEY GEMINI CỦA BẠN VÀO ĐÂY!**
+        // **API Key của bạn đã được thay thế ở đây:**
+        const apiKey = 'AIzaSyA3heEub0BYMp6IvNn5rY6wkWxESOOD3Y8';
 
         sendButton.addEventListener('click', sendMessage);
 
         userInput.addEventListener('keydown', (event) => {
-            if (event.key === 'Enter' && !event.shiftKey) {
-                event.preventDefault();
+            if (event.key === 'Enter' && !event.shiftKey) { // Gửi tin nhắn khi nhấn Enter (không Shift+Enter)
+                event.preventDefault(); // Ngăn xuống dòng mặc định trong textarea
                 sendMessage();
             }
         });
@@ -118,9 +95,11 @@
             const message = userInput.value.trim();
             if (!message) return;
 
+            // Hiển thị tin nhắn của người dùng trong chat log
             addUserMessage(message);
-            userInput.value = '';
+            userInput.value = ''; // Xóa input sau khi gửi
 
+            // Gọi Gemini API
             try {
                 const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=' + apiKey, {
                     method: 'POST',
@@ -139,16 +118,18 @@
                 }
 
                 const data = await response.json();
-                console.log("API Response:", data);
+                console.log("API Response:", data); // In toàn bộ response để debug
 
-                let aiResponseText = "Có lỗi xảy ra khi xử lý phản hồi từ AI.";
+                let aiResponseText = "Có lỗi xảy ra khi xử lý phản hồi từ AI."; // Mặc định nếu không tìm thấy text
 
                 if (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts[0] && data.candidates[0].content.parts[0].text) {
                     aiResponseText = data.candidates[0].content.parts[0].text;
                 } else if (data.error && data.error.message) {
-                    aiResponseText = `Lỗi từ AI: ${data.error.message}`;
+                    aiResponseText = `Lỗi từ AI: ${data.error.message}`; // Hiển thị thông báo lỗi từ API
                 }
 
+
+                // Hiển thị tin nhắn của AI trong chat log
                 addAiMessage(aiResponseText);
 
             } catch (error) {
@@ -162,15 +143,15 @@
             messageDiv.classList.add('user-message');
             messageDiv.textContent = message;
             chatLog.appendChild(messageDiv);
-            chatLog.scrollTop = chatLog.scrollHeight;
+            chatLog.scrollTop = chatLog.scrollHeight; // Tự động cuộn xuống dưới cùng
         }
 
         function addAiMessage(message) {
             const messageDiv = document.createElement('div');
             messageDiv.classList.add('ai-message');
-            messageDiv.innerHTML = message;
+            messageDiv.innerHTML = message; // Sử dụng innerHTML để hiển thị đúng định dạng (nếu AI trả về HTML)
             chatLog.appendChild(messageDiv);
-            chatLog.scrollTop = chatLog.scrollHeight;
+            chatLog.scrollTop = chatLog.scrollHeight; // Tự động cuộn xuống dưới cùng
         }
     </script>
 </body>
